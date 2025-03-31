@@ -1,0 +1,2 @@
+// tạo file sql từ các bảng trên database với docker lưu vào folder migrations.
+docker exec -it my-mysql mysqldump -uroot -p123456 --databases GO_ECOMMERCE --add-drop-database --add-drop-table --add-drop-trigger --add-locks --no-data > migrations/go_ecommerce_sq.sql

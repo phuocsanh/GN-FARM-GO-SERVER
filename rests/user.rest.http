@@ -1,0 +1,13 @@
+@baseUrl="http://localhost:8002/v1"
+
+### User Registration
+
+
+POST http://localhost:8002/api/v1/user/register
+Content-Type: application/json
+
+{
+    "verify_key" : "shanktps04@gmail.com",
+    "verify_purpose" : "TEST_USER",
+    "verify_type" : 1
+}
