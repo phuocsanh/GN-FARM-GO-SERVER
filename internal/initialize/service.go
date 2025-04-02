@@ -7,8 +7,11 @@ import (
 	"go_ecommerce/internal/service/impl"
 )
 
-func InitServiceInterface() {
+func InitService() {
 	queries := database.New(global.Mdbc)
 	// User serive interface
 	service.InitUserLogin(impl.NewUserLoginImpl(queries))
+	
+	// Add product service initialization
+	service.InitProductManagement(impl.NewProductService())
 }

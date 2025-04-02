@@ -7,6 +7,7 @@ package database
 import (
 	"database/sql"
 	"database/sql/driver"
+	"encoding/json"
 	"fmt"
 )
 
@@ -53,6 +54,42 @@ func (ns NullPreGoAccUserTwoFactor9999TwoFactorAuthType) Value() (driver.Value, 
 	return string(ns.PreGoAccUserTwoFactor9999TwoFactorAuthType), nil
 }
 
+// Bonsai products table
+type Bonsai struct {
+	ID          string
+	ProductShop string
+	Age         sql.NullInt32
+	Height      sql.NullInt32
+	Style       sql.NullString
+	Species     sql.NullString
+	PotType     sql.NullString
+	CreatedAt   sql.NullTime
+	UpdatedAt   sql.NullTime
+}
+
+// Inventory table
+type Inventory struct {
+	ID        int32
+	ProductID string
+	ShopID    string
+	Location  sql.NullString
+	Stock     int32
+	CreatedAt sql.NullTime
+	UpdatedAt sql.NullTime
+}
+
+// Mushroom products table
+type Mushroom struct {
+	ID          string
+	ProductShop string
+	Weight      sql.NullString
+	Origin      sql.NullString
+	Freshness   sql.NullString
+	PackageType sql.NullString
+	CreatedAt   sql.NullTime
+	UpdatedAt   sql.NullTime
+}
+
 // pre_go_acc_user_base_9999
 type PreGoAccUserBase9999 struct {
 	UserID         int32
@@ -64,6 +101,8 @@ type PreGoAccUserBase9999 struct {
 	UserLoginIp    sql.NullString
 	UserCreatedAt  sql.NullTime
 	UserUpdatedAt  sql.NullTime
+	// authentication is enabled for the user
+	IsTwoFactorEnabled sql.NullInt32
 }
 
 // pre_go_acc_user_info_9999
@@ -118,4 +157,38 @@ type PreGoAccUserVerify9999 struct {
 	IsDeleted       sql.NullInt32
 	VerifyCreatedAt sql.NullTime
 	VerifyUpdatedAt sql.NullTime
+}
+
+// Products table
+type Product struct {
+	ID                     string
+	ProductName            string
+	ProductPrice           string
+	ProductDiscountedPrice sql.NullString
+	ProductThumb           sql.NullString
+	ProductDescription     sql.NullString
+	ProductQuantity        int32
+	ProductType            string
+	SubProductType         sql.NullString
+	ProductVideos          json.RawMessage
+	ProductPictures        json.RawMessage
+	ProductStatus          string
+	ProductSelled          int32
+	ProductShop            string
+	IsDraft                bool
+	IsPublished            bool
+	CreatedAt              sql.NullTime
+	UpdatedAt              sql.NullTime
+}
+
+// Vegetable products table
+type Vegetable struct {
+	ID          string
+	ProductShop string
+	Weight      sql.NullString
+	Origin      sql.NullString
+	Freshness   sql.NullString
+	PackageType sql.NullString
+	CreatedAt   sql.NullTime
+	UpdatedAt   sql.NullTime
 }

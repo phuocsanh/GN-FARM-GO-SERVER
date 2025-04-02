@@ -16,10 +16,10 @@ func Run() *gin.Engine {
 	global.Logger.Debug("config log ok", zap.String("ok", "success"))
 	InitMysql()
 	InitMysqlC()
-	InitServiceInterface()
+	InitService()
 	InitRedis()
 
-	r:=InitRouter()
+	r := InitRouter()
 	return r
 	// r.Run(":8002")
 }

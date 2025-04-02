@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"go_ecommerce/global"
 	"go_ecommerce/internal/common"
+	"go_ecommerce/internal/model"
 	"time"
 
+	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
 	"gorm.io/gorm"
@@ -40,8 +42,8 @@ func InitMysql() {
 	setPool()
 	// genTableDAO()
 
-	// Run migrations
-	// migrateTables()
+	// Run migrations for products tables if needed
+	migrateProductTables()
 }
 
 // setPool sets the MySQL connection pool settings
@@ -78,14 +80,18 @@ func genTableDAO()  {
 	  g.Execute()
 }
 
-// migrateTables runs database migrations
-// func migrateTables() {
-// err:= global.Mdb.AutoMigrate(
-// 	// &po.User{},
-// 	// &po.Role{},
-// 	&model.GoCrmUserV2{},
-//  )
-//  if err != nil {
-// 	fmt.Println("Migration table failed", err)
-//  }
-// }
+// migrateProductTables runs database migrations for product related tables
+func migrateProductTables() {
+	err := global.Mdb.AutoMigrate(
+		&model.ProductModel{},
+		&model.MushroomModel{},
+		&model.VegetableModel{},
+		&model.BonsaiModel{},
+	)
+	if err != nil {
+		fmt.Println("Migration products tables failed", err)
+		global.Logger.Error("Migration products tables failed", zap.Error(err))
+	} else {
+		global.Logger.Info("Migration products tables successful")
+	}
+}
